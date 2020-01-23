@@ -8,7 +8,6 @@ class Users(db.Model):
     last_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
-    zip = db.Column(db.Integer(), nullable=False)
     
     def __repr__(self):
         return '<Users %r>' % self.first_name
@@ -18,8 +17,7 @@ class Users(db.Model):
         "first_name": self.first_name,
         "last_name": self.last_name,
         "email": self.email,
-        "password": self.password,
-        "zip": self.zip
+        "password": self.password
         }
 
 class Objects(db.Model):

@@ -29,41 +29,40 @@ def sitemap():
     return generate_sitemap(app)
 
 @app.route('/users', methods=['GET'])
-    def my_users():
-        if request.method == 'GET':
-            users = Users.query.all()
-            if not users:
-                return jsonify({'msg': 'User not found'}), 404
+def my_users():
+    if request.method == 'GET':
+        users = Users.query.all()
+        if not users:
+            return jsonify({'msg': 'User not found'}), 404
 
-            return jsonify( [x.serialize() for x in users] ), 200
+        return jsonify( [x.serialize() for x in users] ), 200
 
 
 @app.route('/hello', methods=['POST', 'GET'])
-    def handle_hello():
+def handle_hello():
 
-        response_body = {
-            "hello": "world"
-        }
+    response_body = {
+        "hello": "world"
+    }
 
-        return jsonify(response_body), 200
+    return jsonify(response_body), 200
 
 @app.route('/add_user', methods=['POST'])
-    def add_user():
-        if request.method == 'POST':
-            body = request.get_json()
+def add_user():
+    if request.method == 'POST':
+        body = request.get_json()
 
-            db.session.add(Users(
-                first_name = body["first_name"],
-                last_name = body["last_name"],
-                email = body["email"],
-                password = body["password"],
-                zip = body["zip"]
-            ))
-            
-            db.sessions.commit()
-            return jsonify({
-                'msg': 'User Added!'
-            })
+        db.session.add(Users(
+            first_name = body["first_name"],
+            last_name = body["last_name"],
+            email = body["email"],
+            password = body["password"]
+        ))
+        
+        db.sessions.commit()
+        return jsonify({
+            'msg': 'User Added!'
+        })
 
 @app.route('/add_days', methods=['POST'])
 def add_day():
